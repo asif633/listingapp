@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <app-products-table (selectProduct)="getSelectedProduct($event)" (add)="addOrUpdate($event)"></app-products-table>
+    </div>
+    <div class="col-md-6">
+      <app-product-form [product]="selectedProduct" [addProduct]="addBool"></app-product-form>
+    </div>
+  </div>
+</div>

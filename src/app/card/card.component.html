@@ -1,0 +1,16 @@
+<div class="card" *ngIf="product">
+  <h3 class="card-header">Laptop</h3>
+  <div class="card-block">
+    <h5 class="card-title">{{product.name}}</h5>
+    <h6 class="card-subtitle text-muted">{{product.sku}}</h6>
+  </div>
+  <img style="height: 200px; width: 100%; display: block;" src="{{product.imageUrl}}" alt="Card image">
+  <div class="card-block">
+    <p class="card-text">{{product.description}}</p>
+    <button class="btn btn-primary btn-lg btn-block">Buy Now</button>
+    <button class="btn btn-success btn-lg btn-block">Add To Cart</button>
+  </div>
+  <div class="card-footer text-muted text-xs-center">
+    {{product.price | currency: 'INR': true}}
+  </div>
+</div>

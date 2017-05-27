@@ -1,0 +1,21 @@
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Product Name</th>
+      <th>Product SKU</th>
+      <th>Select</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products | async; let i = index;">
+      <td>{{i}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.sku}}</td>
+      <td>
+        <input type="radio" name="optionsRadios" id="optionsRadios1" value="case" (click)="selectedProduct(product)">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-primary" (click)="initializeNew()">Add New Product</button>
