@@ -1,4 +1,5 @@
 # Listingapp
+Blog is at [Bongtechs](https://www.bongtechs.com/angular2-setup-bootstrap/).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
 
