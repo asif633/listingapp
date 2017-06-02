@@ -23,6 +23,14 @@ import { ProductManageComponent } from './product-manage/product-manage.componen
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { ProductService } from './shared/product.service';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignedUpComponent } from './signed-up/signed-up.component';
+import { OuterNavbarComponent } from './outer-navbar/outer-navbar.component';
+import { ProductInfoService } from './shared/productinfo.service';
+import { CategoryService } from './shared/category.service';
+import { CategoryManageComponent } from './category-manage/category-manage.component';
+import { CategoryTableComponent } from './category-table/category-table.component';
+import { CategoryFormComponent } from './category-form/category-form.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +45,13 @@ import { ProductService } from './shared/product.service';
     SignInComponent,
     ProductManageComponent,
     ProductFormComponent,
-    ProductsTableComponent
+    ProductsTableComponent,
+    SignUpComponent,
+    SignedUpComponent,
+    OuterNavbarComponent,
+    CategoryManageComponent,
+    CategoryTableComponent,
+    CategoryFormComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +62,7 @@ import { ProductService } from './shared/product.service';
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AuthenticationService, AuthGuard, ProductService],
+  providers: [AuthenticationService, AuthGuard, ProductService, ProductInfoService, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

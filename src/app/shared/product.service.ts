@@ -33,6 +33,8 @@ export class ProductService {
                 snapshot => {
                     prod.imageUrl = snapshot.downloadURL;
                     this.afd.object('products/' + key).set(prod);
+                    this.afd.object('userProducts/' + this.uid + '/' + key).set(true);
+                    //alternate method this.afd.list('userProducts').$ref.ref.child(this.uid).child(key).set(true).then(res=> this.afd.list('products').$ref.ref.child(key).set(prod));
                 });
         }
     }
@@ -56,10 +58,44 @@ export class ProductService {
         return this.afd.list('products');
     }
 
+    getCategoryProducts(catKey: string) {
+        return this.afd.list('categoryProducts/' + catKey)
+            .map(res => res.map(res => res.$key))
+            .map(lspc => lspc.map(lessonKey => this.afd.object('products/' + lessonKey)))
+            .mergeMap(fbojs => Observable.combineLatest(fbojs))
+    }
+
+    getProductsOfUser(): Product[] {
+        let products: Product[] = [];
+        if (this.uid != undefined || this.uid != null) {
+            this.afd.list('userProducts/' + this.uid)
+                .forEach(res => res.forEach(
+                    res => {
+                        console.log(res.$key);
+                        this.afd.object(`products/` + res.$key).subscribe(res => {
+                            console.log(res);
+                            products.push(res);
+                        })
+                    }
+                ));
+        }
+        return products;
+    }
+
+    getUserProducts(): Observable<Product[]> {
+        if (this.uid != undefined || this.uid != null) {
+            return this.afd.list('userProducts/' + this.uid)
+                .map(res => res.map(res => res.$key))
+                .map(lspc => lspc.map(lessonKey => this.afd.object('products/' + lessonKey)))
+                .mergeMap(fbojs => Observable.combineLatest(fbojs))
+        }
+    }
+
     deleteProduct(cas: Product) {
         if (this.uid != undefined && this.uid != null) {
             return this.afd.list('products').remove(cas.$key).then(
                 onResolve => {
+                    this.afd.object('userProducts/' + this.uid + '/' + cas.$key).remove();
                     this.firebasestorage.ref(`products` + `/` + cas.$key + `/` + cas.name).delete().then(
                         snapshot => {
                             //console.log(snapshot.downloadURL);
